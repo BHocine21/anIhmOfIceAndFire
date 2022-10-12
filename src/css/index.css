@@ -1,0 +1,12 @@
+.characters-list {
+  overflow-y: scroll;
+  height: 30rem;
+}
+
+.header-logo {
+  width: 15rem;
+}
+
+.bg-image {
+  background-image: url('https://virtualbg-brandstudio.netdna-ssl.com/wp-content/uploads/2020/06/game-of-thrones-background.jpg')
+}

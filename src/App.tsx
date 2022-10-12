@@ -1,33 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link
+} from 'react-router-dom';
 
-function App() {
-  const [count, setCount] = useState(0)
+import { fetchBooks } from 'actions/action';
+
+import './css/index.css'
+
+import gotHeader from 'assets/gotHeader.png'
+
+import BookDetails from 'components/BookDetails/BookDetails'
+import MainContainer from 'components/MainContainer/MainContainer'
+
+const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchBooks())
+  }, [])
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <Router>
+      <nav className='navbar text-white bg-white justify-content-center sticky-top'>
+        <Link to='/'>
+          <img className='header-logo' src={gotHeader} alt='game-of-thrones-logo' />
+        </Link>
+      </nav>
+      <div className='bg-image'>
+          <Routes>
+            <Route path='/' element={<MainContainer />} />
+            <Route path='/book/:bookId' element={<BookDetails />} />
+          </Routes>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    </Router>
   )
 }
 
