@@ -1,34 +1,25 @@
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { BookList } from 'components/BookList/BookList';
+import { EmptyState } from 'components/states/EmptyState';
+import { ErrorState } from 'components/states/ErrorState';
+import { LoadingState } from 'components/states/LoadingState';
+import { useMainContainer } from 'hooks/useMainContainer';
 
-import { State, Book } from 'types/types';
+const MainContainer = () => {
+  const { books, status, error } = useMainContainer();
 
-export const MainContainer = ({ books }) => (
-  <div className='mask' style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}>
-    <div className='d-flex justify-content-center align-items-center h-100'>
-      <div className='text-white col-6'>
-        <div className='list-group mt-5 mb-5 opacity-50'>
-          {books.map((book: Book) => (
-            <Link
-                className='list-group-item list-group-item-action flex-column align-items-start'
-                to={`/book/${book.id}`}
-                key={book.id}
-            >
-              <h5>{book.name}</h5>
-              <small>{book.authors}</small>
-              <br></br>
-              <small>{book.released}</small>
-            </Link>
-          ))}
-        </div>
-      </div>
-    </div>
-  </div>
-);
+  if (status === 'idle' || status === 'loading') {
+    return <LoadingState />;
+  }
 
-const MainContainerConnected = connect(
-  (state: State) => state,
-  {}
-)(MainContainer);
+  if (status === 'failed') {
+    return <ErrorState message={error ?? undefined} />;
+  }
 
-export default MainContainerConnected
+  if (books.length === 0) {
+    return <EmptyState message="No books found." />;
+  }
+
+  return <BookList books={books} />;
+};
+
+export default MainContainer;

@@ -1,0 +1,34 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "ignorePaths": [
+    "node_modules",
+    "dist",
+    "coverage",
+    "playwright-report",
+    "test-results",
+    "pnpm-lock.yaml",
+    "package-lock.json"
+  ],
+  "words": [
+    "anihmoficeandfire",
+    "ANAPIOFICEANDFIRE",
+    "Targaryen",
+    "Westeros",
+    "Lannister",
+    "Stark",
+    "Eddard",
+    "Catelyn",
+    "vitejs",
+    "tsx",
+    "jsdom",
+    "emotion",
+    "MUI",
+    "RTK",
+    "favicon",
+    "pnpm",
+    "Bouhlala",
+    "Hocine",
+    "Cinzel"
+  ]
+}
