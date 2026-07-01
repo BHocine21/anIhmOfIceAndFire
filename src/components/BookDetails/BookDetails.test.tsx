@@ -3,13 +3,13 @@ import { Provider } from 'react-redux';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 
 import BookDetails from 'components/BookDetails/BookDetails';
-import { getCharacter } from 'services/getCharacter';
+import { getBookCharacters } from 'services/getBookCharacters';
 import { createTestStore } from '../../test/testUtils';
 import type { Book } from 'types/types';
 
-jest.mock('services/getCharacter');
+jest.mock('services/getBookCharacters');
 
-const mockedGetCharacter = getCharacter as jest.MockedFunction<typeof getCharacter>;
+const mockedGetBookCharacters = getBookCharacters as jest.MockedFunction<typeof getBookCharacters>;
 
 const book: Book = {
   id: 1,
@@ -38,10 +38,7 @@ const renderBookDetails = (initialPath: string, books: Book[]) => {
 
 describe('BookDetails', () => {
   it('shows the resolved book details once characters are loaded', async () => {
-    mockedGetCharacter.mockResolvedValueOnce({
-      url: book.characterUrls[0] as string,
-      name: 'Eddard Stark',
-    });
+    mockedGetBookCharacters.mockResolvedValueOnce(['Eddard Stark']);
 
     renderBookDetails('/book/1', [book]);
 

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { getCharacter } from 'services/getCharacter';
+import { getBookCharacters } from 'services/getBookCharacters';
 import { useAppSelector } from 'store/hooks';
 import type { Book, BookDetailsViewModel } from 'types/types';
 
@@ -35,16 +35,10 @@ export const useBookDetails = (): UseBookDetailsResult => {
 
     const loadCharacters = async (): Promise<void> => {
       try {
-        const fetchedCharacters = await Promise.all(
-          book.characterUrls.map((url) => getCharacter(url)),
-        );
+        const characters = await getBookCharacters(book.id);
 
         if (!isCancelled) {
-          setCharacterFetch({
-            bookId: book.id,
-            characters: fetchedCharacters.map((character) => character.name).sort(),
-            failed: false,
-          });
+          setCharacterFetch({ bookId: book.id, characters, failed: false });
         }
       } catch {
         if (!isCancelled) {

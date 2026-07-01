@@ -4,13 +4,13 @@ import { Provider } from 'react-redux';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 
 import { useBookDetails } from 'hooks/useBookDetails';
-import { getCharacter } from 'services/getCharacter';
+import { getBookCharacters } from 'services/getBookCharacters';
 import { createTestStore } from '../test/testUtils';
 import type { Book } from 'types/types';
 
-jest.mock('services/getCharacter');
+jest.mock('services/getBookCharacters');
 
-const mockedGetCharacter = getCharacter as jest.MockedFunction<typeof getCharacter>;
+const mockedGetBookCharacters = getBookCharacters as jest.MockedFunction<typeof getBookCharacters>;
 
 const book: Book = {
   id: 1,
@@ -41,10 +41,7 @@ const createWrapper = (initialPath: string, books: Book[]) => {
 
 describe('useBookDetails', () => {
   it('resolves character names and returns the book details', async () => {
-    mockedGetCharacter.mockResolvedValueOnce({
-      url: book.characterUrls[0] as string,
-      name: 'Eddard Stark',
-    });
+    mockedGetBookCharacters.mockResolvedValueOnce(['Eddard Stark']);
 
     const { result } = renderHook(() => useBookDetails(), {
       wrapper: createWrapper('/book/1', [book]),
@@ -70,7 +67,7 @@ describe('useBookDetails', () => {
   });
 
   it('returns failed when fetching character names fails', async () => {
-    mockedGetCharacter.mockRejectedValueOnce(new Error('Network error'));
+    mockedGetBookCharacters.mockRejectedValueOnce(new Error('Network error'));
 
     const { result } = renderHook(() => useBookDetails(), {
       wrapper: createWrapper('/book/1', [book]),
