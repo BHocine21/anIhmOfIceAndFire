@@ -50,7 +50,7 @@ export const HousesSection = () => (
     component="section"
     sx={{
       position: 'relative', zIndex: 2,
-      mt: 10, py: '110px',
+      mt: 10, py: '300px',
       background: 'linear-gradient(180deg, rgba(26,22,15,0) 0%, #1c1810 14%, #15110b 86%, rgba(26,22,15,0) 100%)',
       scrollMarginTop: 90,
     }}
