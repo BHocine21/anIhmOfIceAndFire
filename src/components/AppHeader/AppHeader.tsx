@@ -3,6 +3,7 @@ import { Box } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
 
 import gotHeader from 'assets/gotHeader.png';
+import gotLogo from 'assets/got-logo.svg';
 
 const NAV_LINKS = [
   { label: 'The Saga', href: '#saga' },
@@ -56,22 +57,19 @@ export const AppHeader = () => {
         }}
       >
         {/* Logo */}
-        <Link to="/" aria-label="Back to home" style={{ display: 'flex', alignItems: 'center', gap: 12, textDecoration: 'none', color: 'inherit' }}>
-          <Box sx={{
-            display: 'inline-flex', width: 34, height: 34, alignItems: 'center', justifyContent: 'center',
-            border: `1.5px solid ${accent}`, borderRadius: '50%', color: accent,
-            fontFamily: '"Cinzel Decorative", serif', fontWeight: 900, fontSize: 16,
-            transition: 'all .4s ease',
-          }}>
-            ✦
-          </Box>
-          <Box sx={{
-            fontFamily: '"Cinzel", serif', fontWeight: 700, letterSpacing: '.28em', fontSize: 14,
-            color: ink, textShadow: scrolled ? 'none' : '0 1px 10px rgba(0,0,0,.55)',
-            transition: 'color .4s ease',
-          }}>
-            ICE &amp; FIRE
-          </Box>
+        <Link to="/" aria-label="Back to home" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
+          <Box
+            component="img"
+            src={gotLogo}
+            alt="Game of Thrones logo"
+            sx={{
+              height: 44, width: 'auto',
+              filter: isOpaque
+                ? 'sepia(1) saturate(1.2) brightness(0.55) hue-rotate(340deg)'
+                : 'invert(1) sepia(.4) saturate(2.5) hue-rotate(10deg) brightness(1.1)',
+              transition: 'filter .4s ease',
+            }}
+          />
           <img src={gotHeader} alt="A Song of Ice and Fire" style={{ display: 'none' }} />
         </Link>
 
